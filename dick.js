@@ -28,11 +28,31 @@
 				
 				//  Hide random elements on hover
 				vanishingElements: function() {
-					return $('h1,h2,h3,p,div,input,header,footer,section').hover(function() {
+					return $('h1,h2,h3,p,div:not(.timber),input,header,footer,section').hover(function() {
 						if(Math.random() > .75) {
 							$(this).css('visibility', 'hidden');
 						}
 					});
+				},
+				
+				fallingScrollbar: function() {
+					var h = $(window).height() + 30,
+						html = '<div class="timber" style="-webkit-transform-origin:0 0;-moz-transform-origin:0 0;-ms-transform-origin:0 0;-o-transform-origin:0 0;transform-origin:0 0;-webkit-transition:-webkit-transform .8s;-moz-transition:-moz-transform .8s;-ms-transition:-ms-transform .8s;-o-transition:-o-transform .8s;transition:transform .8s;position:fixed;right:0;bottom:0;overflow:scroll;width:14px;height:' + h + 'px">' + new Array(80).join('<br>') + '</div>'
+					
+					var me = this.css('overflow', 'hidden').append(html);
+					
+					setTimeout(function() {
+						me.children('.timber').css({
+							WebkitTransform: 'rotate(90deg)',
+							MozTransform: 'rotate(90deg)',
+							MsTransform: 'rotate(90deg)',
+							OTransform: 'rotate(90deg)',
+							transform: 'rotate(90deg)',
+							
+							right: h,
+							bottom: -(h - 14)					
+						});
+					}, 250);
 				}
 			},
 			
