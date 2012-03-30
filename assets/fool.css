@@ -21,6 +21,16 @@ html, body {
 		padding-left: 350px;
 	}
 	
+.tweet {
+	position: fixed;
+	bottom: 0;
+	
+	background-color: rgba(237,242,243,.3);
+
+	margin-left: -40px;
+	padding: 10px;
+}
+	
 a {
 	cursor: pointer;
 	
