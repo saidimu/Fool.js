@@ -1,4 +1,15 @@
 (function($) {
+
+	$.fn.prefixCSS = function(prop, val) {
+		var prefixes = ['Webkit', 'Moz', 'Ms', 'O'],
+			obj = {};
+		
+		for(var doNotNeedThisVariable in prefixes) {
+			obj[prefixes + (prop.charAt(0).toUpperCase() + prop.substr(1))] = val;
+		}
+		
+		return this.css(obj);
+	};
 	
 	//  Don't be a dick.
 	$.dick = function(options) {
@@ -30,29 +41,49 @@
 				vanishingElements: function() {
 					return $('h1,h2,h3,p,div:not(.timber),input,header,footer,section').hover(function() {
 						if(Math.random() > .75) {
-							$(this).css('visibility', 'hidden');
+							$(this).css('opacity', $(this).css('opacity') == 0 ? 1 : 0);
 						}
 					});
 				},
 				
 				fallingScrollbar: function() {
 					var h = $(window).height() + 30,
-						html = '<div class="timber" style="-webkit-transform-origin:0 0;-moz-transform-origin:0 0;-ms-transform-origin:0 0;-o-transform-origin:0 0;transform-origin:0 0;-webkit-transition:-webkit-transform .8s;-moz-transition:-moz-transform .8s;-ms-transition:-ms-transform .8s;-o-transition:-o-transform .8s;transition:transform .8s;position:fixed;right:0;bottom:0;overflow:scroll;width:14px;height:' + h + 'px">' + new Array(80).join('<br>') + '</div>'
-					
-					var me = this.css('overflow', 'hidden').append(html);
+						html = '<div class="timber" style="-webkit-transform-origin:50% 100%;-moz-transform-origin:50% 100%;-ms-transform-origin:50% 100%;-o-transform-origin:50% 100%;transform-origin:50% 100%;-webkit-transition:-webkit-transform .8s;-moz-transition:-moz-transform .8s;-ms-transition:-ms-transform .8s;-o-transition:-o-transform .8s;transition:transform .8s;position:fixed;right:0;bottom:0;overflow:scroll;width:14px;height:' + h + 'px">' + new Array(80).join('<br>') + '</div>',
+						
+						me = this.css('overflow', 'hidden').append(html),
+						rot = 'rotate(-100deg)';
 					
 					setTimeout(function() {
-						me.children('.timber').css({
-							WebkitTransform: 'rotate(90deg)',
-							MozTransform: 'rotate(90deg)',
-							MsTransform: 'rotate(90deg)',
-							OTransform: 'rotate(90deg)',
-							transform: 'rotate(90deg)',
-							
-							right: h,
-							bottom: -(h - 14)					
+						me.children('.timber').prefixCSS('transition', '.8s').css({
+							right: -23,
+							bottom: 7,
 						});
 					}, 250);
+				},
+				
+				questionTime: function() {
+					var q = ['Are ya ready, kids?', 'I can\'t hear ya!', 'Ohhhhh, who lives in a pineapple under the sea?', 'Absorbent and yellow and pourous is he', 'If nautical nonsense be somethin\' ya wish.', 'Then drop on the deck and flop like a fish.'],
+						a = 'Spongebob Squarepants. Spongebob Squarepants.';
+						
+					for(var i in q) {
+						window.prompt(q[i]);
+					}
+					
+					for(var t = 0; t < 4; t++) {
+						alert(a);
+					}
+				},
+				
+				//  I can hack a site!
+				h4xx0r: function() {
+					this[0].contentEditable = true;
+					return document.designMode = 'on';
+				},
+				
+				//  This don't work with the falling scrollbar.
+				//  TODO: fix this
+				upsideDown: function() {
+					body.prefixCSS('');
 				}
 			},
 			
